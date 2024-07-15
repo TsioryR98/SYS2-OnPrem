@@ -127,7 +127,6 @@ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 ```
-
 Enregistrez les règles iptables pour qu'elles persistent après redémarrage :
 
 ```bash
@@ -139,6 +138,7 @@ sudo systemctl start iptables
 * SCRIPTS
   . Configuration de l'interface réseau privée:
     * Créer un fichier de configuration systemd-networkd pour l'interface privée, par exemple ``` /etc/systemd/network/10-private.network  ```:
+      
 ```bash
 [Match]
 Name=private0
@@ -147,8 +147,9 @@ Name=private0
 Address=192.168.100.1/24
 IPForward=yes
 ```
-    * Activer et démarrer le service systemd-networkd ```bash systemctl enable --now systemd-networkd ```.
-    
+
+    *  Activer et démarrer le service systemd-networkd ```bash systemctl enable --now systemd-networkd ```.
+   
   . Activation du forwarding IP:
     * Éditer le fichier ``` /etc/sysctl.d/99-sysctl.conf ``` et décommenter la ligne ``` net.ipv4.ip_forward=1 ```.
     * Appliquer les changements ```bash sysctl --system ```
