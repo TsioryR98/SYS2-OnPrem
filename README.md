@@ -142,10 +142,10 @@ sudo systemctl start systemd-networkd
 ## Connexion des hôtes avec des adresses IP statiques
 Pour que vos hôtes se connectent au réseau sans DHCP, configurez manuellement les paramètres réseau sur chaque hôte avec les informations suivantes :
 
-* # Adresse IP : 192.168.12.x (où x est un nombre unique entre 2 et 254)
-* # Masque de sous-réseau : 255.255.255.0
-* # Passerelle : 192.168.12.1
-* # DNS Vous pouvez utiliser les DNS de votre fournisseur d'accès internet ou ceux de Google (8.8.8.8, 8.8.4.4)
+* Adresse IP : 192.168.12.x (où x est un nombre unique entre 2 et 254)
+* Masque de sous-réseau : 255.255.255.0
+* Passerelle : 192.168.12.1
+* DNS Vous pouvez utiliser les DNS de votre fournisseur d'accès internet ou ceux de Google (8.8.8.8, 8.8.4.4)
 
 ## Connexion des hôtes avec des adresses IP statiques
 Sur chaque hôte, éditez le fichier de configuration réseau ou utilisez les commandes appropriées pour attribuer une adresse IP statique. Par exemple, sous Linux :
