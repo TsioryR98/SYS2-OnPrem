@@ -95,6 +95,13 @@ Name=wlan0
 
 [Network]
 Address=192.168.1.1/24
+DHCP=no
+
+[DHCPServer]
+PoolOffset=50
+PoolSize=100
+IPMasquerade=yes
+DefaultLeaseTimeSec=600
 ```
 
 ### Étape 4: Configurer le forwarding IP
