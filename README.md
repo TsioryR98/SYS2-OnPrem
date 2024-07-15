@@ -65,4 +65,31 @@ sudo systemctl enable iptables
 sudo systemctl start iptables
 ```
 
+### Étape 6: Démarrer les services
+
+```bash
+sudo systemctl enable hostapd
+sudo systemctl start hostapd
+```
+
+## Création d'un sous-réseau privé avec systemd-networkd
+
+### Étape 1: Installer systemd-networkd
+
+Installez ```bash systemd-networkd ``` si ce n'est pas déjà fait :
+
+```bash
+sudo pacman -S systemd
+```
+### Étape 2: Configurer hostapd pour le point d'accès
+Comme décrit ci-dessus, créez le fichier de configuration ```bash /etc/hostapd/hostapd.conf ```. 
+
+### Étape 3: Configurer les fichiers de réseau avec systemd-networkd
+Créez un fichier de configuration pour l'interface Wi-Fi dans ```bash /etc/systemd/network/ ```.
+##
+
+
+
+
+
 
