@@ -147,14 +147,14 @@ Name=private0
 Address=192.168.100.1/24
 IPForward=yes
 ```
-    * Activer et démarrer le service systemd-networkd ```bash systemctl enable --now systemd-networkd ```
+    * Activer et démarrer le service systemd-networkd ```bash systemctl enable --now systemd-networkd ```.
     
   . Activation du forwarding IP:
-    * Éditer le fichier ``` /etc/sysctl.d/99-sysctl.conf ``` et décommenter la ligne ``` net.ipv4.ip_forward=1 ```
+    * Éditer le fichier ``` /etc/sysctl.d/99-sysctl.conf ``` et décommenter la ligne ``` net.ipv4.ip_forward=1 ```.
     * Appliquer les changements ```bash sysctl --system ```
     
   . Configuration des règles iptables:
-    * Créer un script iptables, par exemple ``` /etc/iptables/iptables.rules ```
+    * Créer un script iptables, par exemple ``` /etc/iptables/iptables.rules ```.
     
 ```bash
 *nat
@@ -173,7 +173,8 @@ COMMIT
 -A FORWARD -i eth0 -o private0 -j ACCEPT
 COMMIT
 ```
-      * Charger les règles iptables au démarrage :
+Charger les règles iptables au démarrage :
+
   ```bash
 systemctl enable iptables
 systemctl start iptables
