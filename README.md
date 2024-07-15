@@ -119,7 +119,9 @@ sudo sysctl --system
 ```
 
 ### Étape 5: Configurer iptables pour le NAT
-
+ 
+ * MANUEL
+ 
 ```bash
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
@@ -133,6 +135,53 @@ sudo iptables-save | sudo tee /etc/iptables/iptables.rules
 sudo systemctl enable iptables
 sudo systemctl start iptables
 ```
+
+* SCRIPTS
+  . Configuration de l'interface réseau privée:
+    * Créer un fichier de configuration systemd-networkd pour l'interface privée, par exemple ``` /etc/systemd/network/10-private.network  ```:
+```bash
+[Match]
+Name=private0
+
+[Network]
+Address=192.168.100.1/24
+IPForward=yes
+```
+    * Activer et démarrer le service systemd-networkd ```bash systemctl enable --now systemd-networkd ```
+    
+  . Activation du forwarding IP:
+    * Éditer le fichier ``` /etc/sysctl.d/99-sysctl.conf ``` et décommenter la ligne ``` net.ipv4.ip_forward=1 ```
+    * Appliquer les changements ```bash sysctl --system ```
+    
+  . Configuration des règles iptables:
+    * Créer un script iptables, par exemple ``` /etc/iptables/iptables.rules ```
+    
+```bash
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s 192.168.100.0/24 -o eth0 -j MASQUERADE
+COMMIT
+
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A FORWARD -i private0 -o eth0 -j ACCEPT
+-A FORWARD -i eth0 -o private0 -j ACCEPT
+COMMIT
+```
+      * Charger les règles iptables au démarrage :
+  ```bash
+systemctl enable iptables
+systemctl start iptables
+```
+Avec ces étapes, vous aurez créé un sous-réseau privé sur votre Arch Linux, avec l'interface private0 configurée en tant que passerelle et le forwarding IP activé pour permettre la communication entre le sous-réseau privé et le réseau public.
+
+
+
 ### Étape 6: Démarrer les services
 
 Activez et démarrez les services ``` iptables ``` , ``` hostapd, et systemd-networkd ``` :
