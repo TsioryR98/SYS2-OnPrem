@@ -180,8 +180,7 @@ Charger les règles iptables au démarrage :
 systemctl enable iptables
 systemctl start iptables
 ```
-Avec ces étapes, vous aurez créé un sous-réseau privé sur votre Arch Linux, avec l'interface private0 configurée en tant que passerelle et le forwarding IP activé pour permettre la communication entre le sous-réseau privé et le réseau public.
-
+Vous aurez créé un sous-réseau privé sur votre Arch Linux, avec l'interface private0 configurée en tant que passerelle et le forwarding IP activé pour permettre la communication entre le sous-réseau privé et le réseau public.
 
 
 ### Étape 6: Démarrer les services
@@ -212,7 +211,7 @@ Sur chaque hôte, éditez le fichier de configuration réseau ou utilisez les co
 sudo ip addr add 192.168.12.2/24 dev wlan0
 sudo ip route add default via 192.168.12.1
 ```
-Avec ces configurations, votre machine Arch Linux fonctionnera comme un point d'accès sans DHCP et une passerelle, permettant aux hôtes de se connecter à un autre réseau en passant par votre machine. Vous utiliserez une connexion Ethernet (eth0) pour accéder à Internet et une connexion Wi-Fi (wlan0) pour votre réseau privé.
+Arch Linux fonctionnera  un point d'accès sans DHCP et une passerelle, permettant aux hôtes de se connecter à un autre réseau en passant par votre machine. Vous utiliserez une connexion Ethernet (eth0) pour accéder à Internet et une connexion Wi-Fi (wlan0) pour votre réseau privé.
 
 
 
