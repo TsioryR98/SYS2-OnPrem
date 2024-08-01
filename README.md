@@ -56,6 +56,12 @@ sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 ```
+Verfier le iptables.rules
+
+```bash
+sudo iptables -t nat -L -v
+sudo iptables -L -v
+```
 
 Enregistrez les règles iptables pour qu'elles persistent après redémarrage :
 
